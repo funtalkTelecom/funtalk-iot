@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbOPhoneMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbOPhone" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="service_kind" property="serviceKind" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="bill_date" property="billDate" jdbcType="INTEGER" />
+    <result column="package_id" property="packageId" jdbcType="INTEGER" />
+    <result column="package_count" property="packageCount" jdbcType="INTEGER" />
+    <result column="day_limit" property="dayLimit" jdbcType="INTEGER" />
+    <result column="day_used" property="dayUsed" jdbcType="INTEGER" />
+    <result column="month_used" property="monthUsed" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="if_use" property="ifUse" jdbcType="VARCHAR" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="ServiceCount" type="com.funtalk.vo.TbOPhoneCount" >
+
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="pre_value" property="preValue" jdbcType="INTEGER" />
+    <result column="cur_value" property="curValue" jdbcType="INTEGER" />
+    <result column="next_value" property="nextValue" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, service_kind, city_code, service_id, cust_id, bill_date, package_id, package_count, 
+    day_limit, day_used, month_used, create_time, state, if_use, task_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbOPhoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_o_phone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_o_phone
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_o_phone
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbOPhoneExample" >
+    delete from tb_o_phone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbOPhone" >
+    insert into tb_o_phone (order_id, service_kind, city_code, 
+      service_id, cust_id, bill_date, 
+      package_id, package_count, day_limit, 
+      day_used, month_used, create_time, 
+      state, if_use, task_id
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{serviceKind,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{serviceId,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, #{billDate,jdbcType=INTEGER}, 
+      #{packageId,jdbcType=INTEGER}, #{packageCount,jdbcType=INTEGER}, #{dayLimit,jdbcType=INTEGER}, 
+      #{dayUsed,jdbcType=INTEGER}, #{monthUsed,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=VARCHAR}, #{ifUse,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbOPhone" >
+    insert into tb_o_phone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="serviceKind != null" >
+        service_kind,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="billDate != null" >
+        bill_date,
+      </if>
+      <if test="packageId != null" >
+        package_id,
+      </if>
+      <if test="packageCount != null" >
+        package_count,
+      </if>
+      <if test="dayLimit != null" >
+        day_limit,
+      </if>
+      <if test="dayUsed != null" >
+        day_used,
+      </if>
+      <if test="monthUsed != null" >
+        month_used,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="ifUse != null" >
+        if_use,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceKind != null" >
+        #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="billDate != null" >
+        #{billDate,jdbcType=INTEGER},
+      </if>
+      <if test="packageId != null" >
+        #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="packageCount != null" >
+        #{packageCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayLimit != null" >
+        #{dayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="dayUsed != null" >
+        #{dayUsed,jdbcType=INTEGER},
+      </if>
+      <if test="monthUsed != null" >
+        #{monthUsed,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="ifUse != null" >
+        #{ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbOPhoneExample" resultType="java.lang.Integer" >
+    select count(*) from tb_o_phone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_o_phone
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceKind != null" >
+        service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null" >
+        city_code = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null" >
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billDate != null" >
+        bill_date = #{record.billDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageId != null" >
+        package_id = #{record.packageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageCount != null" >
+        package_count = #{record.packageCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.dayLimit != null" >
+        day_limit = #{record.dayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.dayUsed != null" >
+        day_used = #{record.dayUsed,jdbcType=INTEGER},
+      </if>
+      <if test="record.monthUsed != null" >
+        month_used = #{record.monthUsed,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifUse != null" >
+        if_use = #{record.ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_o_phone
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      city_code = #{record.cityCode,jdbcType=VARCHAR},
+      service_id = #{record.serviceId,jdbcType=VARCHAR},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      bill_date = #{record.billDate,jdbcType=INTEGER},
+      package_id = #{record.packageId,jdbcType=INTEGER},
+      package_count = #{record.packageCount,jdbcType=INTEGER},
+      day_limit = #{record.dayLimit,jdbcType=INTEGER},
+      day_used = #{record.dayUsed,jdbcType=INTEGER},
+      month_used = #{record.monthUsed,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=VARCHAR},
+      if_use = #{record.ifUse,jdbcType=VARCHAR},
+      task_id = #{record.taskId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbOPhone" >
+    update tb_o_phone
+    <set >
+      <if test="serviceKind != null" >
+        service_kind = #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null" >
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="billDate != null" >
+        bill_date = #{billDate,jdbcType=INTEGER},
+      </if>
+      <if test="packageId != null" >
+        package_id = #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="packageCount != null" >
+        package_count = #{packageCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayLimit != null" >
+        day_limit = #{dayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="dayUsed != null" >
+        day_used = #{dayUsed,jdbcType=INTEGER},
+      </if>
+      <if test="monthUsed != null" >
+        month_used = #{monthUsed,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="ifUse != null" >
+        if_use = #{ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbOPhone" >
+    update tb_o_phone
+    set service_kind = #{serviceKind,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      service_id = #{serviceId,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=VARCHAR},
+      bill_date = #{billDate,jdbcType=INTEGER},
+      package_id = #{packageId,jdbcType=INTEGER},
+      package_count = #{packageCount,jdbcType=INTEGER},
+      day_limit = #{dayLimit,jdbcType=INTEGER},
+      day_used = #{dayUsed,jdbcType=INTEGER},
+      month_used = #{monthUsed,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
+      if_use = #{ifUse,jdbcType=VARCHAR},
+      task_id = #{taskId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getPhoneCounts" parameterType="java.lang.Integer" resultMap="ServiceCount">
+
+    set @lag:=0,@currs:=0,@nextvalue:=0;
+    SELECT order_id,service_id,@lag:=@lag+@currs  pre_value,
+    (@currs:=(a.day_limit-a.day_used))  cur_value,
+    @nextvalue:=@nextvalue+@currs  next_value
+    from tb_o_phone a
+    where a.cust_id='leyu'
+    and a.month_used &lt; a.package_count
+    and a.day_used &lt; a.day_limit
+    and @lag &lt; #{size,jdbcType=INTEGER}
+    ORDER BY order_id;
+
+  </select>
+
+
+  <update id="updateUseCount">
+
+    update tb_o_phone
+    set day_used=day_used+#{1},
+        month_used=month_used+#{1}
+    where order_id=#{0}
+
+  </update>
+</mapper>

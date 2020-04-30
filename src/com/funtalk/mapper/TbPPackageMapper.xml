@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbPPackageMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbPPackage" >
+    <id column="package_id" property="packageId" jdbcType="INTEGER" />
+    <result column="package_type" property="packageType" jdbcType="VARCHAR" />
+    <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+    <result column="package_price" property="packagePrice" jdbcType="VARCHAR" />
+    <result column="package_count" property="packageCount" jdbcType="INTEGER" />
+    <result column="boss_pack_id" property="bossPackId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    package_id, package_type, package_name, package_price, package_count, boss_pack_id, 
+    create_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbPPackageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_p_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_p_package
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_p_package
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbPPackageExample" >
+    delete from tb_p_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbPPackage" >
+    insert into tb_p_package (package_id, package_type, package_name, 
+      package_price, package_count, boss_pack_id, 
+      create_time, remark)
+    values (#{packageId,jdbcType=INTEGER}, #{packageType,jdbcType=VARCHAR}, #{packageName,jdbcType=VARCHAR}, 
+      #{packagePrice,jdbcType=VARCHAR}, #{packageCount,jdbcType=INTEGER}, #{bossPackId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbPPackage" >
+    insert into tb_p_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="packageId != null" >
+        package_id,
+      </if>
+      <if test="packageType != null" >
+        package_type,
+      </if>
+      <if test="packageName != null" >
+        package_name,
+      </if>
+      <if test="packagePrice != null" >
+        package_price,
+      </if>
+      <if test="packageCount != null" >
+        package_count,
+      </if>
+      <if test="bossPackId != null" >
+        boss_pack_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="packageId != null" >
+        #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="packageType != null" >
+        #{packageType,jdbcType=VARCHAR},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packagePrice != null" >
+        #{packagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="packageCount != null" >
+        #{packageCount,jdbcType=INTEGER},
+      </if>
+      <if test="bossPackId != null" >
+        #{bossPackId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbPPackageExample" resultType="java.lang.Integer" >
+    select count(*) from tb_p_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_p_package
+    <set >
+      <if test="record.packageId != null" >
+        package_id = #{record.packageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageType != null" >
+        package_type = #{record.packageType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageName != null" >
+        package_name = #{record.packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packagePrice != null" >
+        package_price = #{record.packagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageCount != null" >
+        package_count = #{record.packageCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.bossPackId != null" >
+        boss_pack_id = #{record.bossPackId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_p_package
+    set package_id = #{record.packageId,jdbcType=INTEGER},
+      package_type = #{record.packageType,jdbcType=VARCHAR},
+      package_name = #{record.packageName,jdbcType=VARCHAR},
+      package_price = #{record.packagePrice,jdbcType=VARCHAR},
+      package_count = #{record.packageCount,jdbcType=INTEGER},
+      boss_pack_id = #{record.bossPackId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbPPackage" >
+    update tb_p_package
+    <set >
+      <if test="packageType != null" >
+        package_type = #{packageType,jdbcType=VARCHAR},
+      </if>
+      <if test="packageName != null" >
+        package_name = #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="packagePrice != null" >
+        package_price = #{packagePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="packageCount != null" >
+        package_count = #{packageCount,jdbcType=INTEGER},
+      </if>
+      <if test="bossPackId != null" >
+        boss_pack_id = #{bossPackId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbPPackage" >
+    update tb_p_package
+    set package_type = #{packageType,jdbcType=VARCHAR},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      package_price = #{packagePrice,jdbcType=VARCHAR},
+      package_count = #{packageCount,jdbcType=INTEGER},
+      boss_pack_id = #{bossPackId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where package_id = #{packageId,jdbcType=INTEGER}
+  </update>
+</mapper>

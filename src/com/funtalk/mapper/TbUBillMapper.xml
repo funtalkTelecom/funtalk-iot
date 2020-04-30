@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbUBillMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbUBill" >
+    <id column="bill_id" property="billId" jdbcType="INTEGER" />
+    <result column="belong_type" property="belongType" jdbcType="VARCHAR" />
+    <result column="belong_id" property="belongId" jdbcType="VARCHAR" />
+    <result column="bill_date" property="billDate" jdbcType="INTEGER" />
+    <result column="bill_item" property="billItem" jdbcType="VARCHAR" />
+    <result column="bill_amount" property="billAmount" jdbcType="INTEGER" />
+    <result column="pay_amount" property="payAmount" jdbcType="INTEGER" />
+    <result column="own_amount" property="ownAmount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bill_id, belong_type, belong_id, bill_date, bill_item, bill_amount, pay_amount, own_amount, 
+    create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbUBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_u_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_u_bill
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_u_bill
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbUBillExample" >
+    delete from tb_u_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbUBill" >
+    insert into tb_u_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        bill_id,
+      </if>
+      <if test="belongType != null" >
+        belong_type,
+      </if>
+      <if test="belongId != null" >
+        belong_id,
+      </if>
+      <if test="billDate != null" >
+        bill_date,
+      </if>
+      <if test="billItem != null" >
+        bill_item,
+      </if>
+      <if test="billAmount != null" >
+        bill_amount,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="ownAmount != null" >
+        own_amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="belongType != null" >
+        #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="billDate != null" >
+        #{billDate,jdbcType=INTEGER},
+      </if>
+      <if test="billItem != null" >
+        #{billItem,jdbcType=VARCHAR},
+      </if>
+      <if test="billAmount != null" >
+        #{billAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="ownAmount != null" >
+        #{ownAmount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbUBillExample" resultType="java.lang.Integer" >
+    select count(*) from tb_u_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_u_bill
+    <set >
+      <if test="record.billId != null" >
+        bill_id = #{record.billId,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongType != null" >
+        belong_type = #{record.belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongId != null" >
+        belong_id = #{record.belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billDate != null" >
+        bill_date = #{record.billDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.billItem != null" >
+        bill_item = #{record.billItem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billAmount != null" >
+        bill_amount = #{record.billAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.payAmount != null" >
+        pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.ownAmount != null" >
+        own_amount = #{record.ownAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_u_bill
+    set bill_id = #{record.billId,jdbcType=INTEGER},
+      belong_type = #{record.belongType,jdbcType=VARCHAR},
+      belong_id = #{record.belongId,jdbcType=VARCHAR},
+      bill_date = #{record.billDate,jdbcType=INTEGER},
+      bill_item = #{record.billItem,jdbcType=VARCHAR},
+      bill_amount = #{record.billAmount,jdbcType=INTEGER},
+      pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      own_amount = #{record.ownAmount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbUBill" >
+    update tb_u_bill
+    <set >
+      <if test="belongType != null" >
+        belong_type = #{belongType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongId != null" >
+        belong_id = #{belongId,jdbcType=VARCHAR},
+      </if>
+      <if test="billDate != null" >
+        bill_date = #{billDate,jdbcType=INTEGER},
+      </if>
+      <if test="billItem != null" >
+        bill_item = #{billItem,jdbcType=VARCHAR},
+      </if>
+      <if test="billAmount != null" >
+        bill_amount = #{billAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="ownAmount != null" >
+        own_amount = #{ownAmount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbUBill" >
+    update tb_u_bill
+    set belong_type = #{belongType,jdbcType=VARCHAR},
+      belong_id = #{belongId,jdbcType=VARCHAR},
+      bill_date = #{billDate,jdbcType=INTEGER},
+      bill_item = #{billItem,jdbcType=VARCHAR},
+      bill_amount = #{billAmount,jdbcType=INTEGER},
+      pay_amount = #{payAmount,jdbcType=INTEGER},
+      own_amount = #{ownAmount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where bill_id = #{billId,jdbcType=INTEGER}
+  </update>
+
+
+  <insert id="saveBill" parameterType="com.funtalk.pojo.TbUBill" useGeneratedKeys="true" keyProperty="billId" >
+
+  insert into tb_u_bill(belong_type,belong_id,bill_date,bill_item,bill_amount,create_time)
+  values (#{belongType ,jdbcType=VARCHAR}, #{belongId,jdbcType=VARCHAR},
+           #{billDate,jdbcType=INTEGER}, #{billItem,jdbcType=VARCHAR},#{billAmount ,jdbcType=INTEGER},
+           #{createTime,jdbcType=TIMESTAMP})
+
+  </insert>
+
+</mapper>

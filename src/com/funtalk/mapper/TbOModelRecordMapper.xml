@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbOModelRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbOModelRecord" >
+    <result column="record_id" property="recordId" jdbcType="INTEGER" />
+    <result column="topic" property="topic" jdbcType="VARCHAR" />
+    <result column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="message_qos" property="messageQos" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="card_type" property="cardType" jdbcType="INTEGER" />
+    <result column="command" property="command" jdbcType="VARCHAR" />
+    <result column="sms_msg" property="smsMsg" jdbcType="VARCHAR" />
+    <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="iccid1" property="iccid1" jdbcType="VARCHAR" />
+    <result column="iccid5" property="iccid5" jdbcType="VARCHAR" />
+    <result column="iccid6" property="iccid6" jdbcType="VARCHAR" />
+    <result column="seed_iccid" property="seedIccid" jdbcType="VARCHAR" />
+    <result column="signal_level" property="signalLevel" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    record_id, topic, message_id, message_qos, create_time, card_id, card_type, command, 
+    sms_msg, iccid, iccid1, iccid5, iccid6, seed_iccid, signal_level, version, message_content
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbOModelRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_o_model_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbOModelRecordExample" >
+    delete from tb_o_model_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbOModelRecord" >
+    insert into tb_o_model_record (record_id, topic, message_id, 
+      message_qos, create_time, card_id, 
+      card_type, command, sms_msg, 
+      iccid, iccid1, iccid5, 
+      iccid6, seed_iccid, signal_level, 
+      version, message_content)
+    values (#{recordId,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR}, #{messageId,jdbcType=INTEGER}, 
+      #{messageQos,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{cardId,jdbcType=VARCHAR}, 
+      #{cardType,jdbcType=INTEGER}, #{command,jdbcType=VARCHAR}, #{smsMsg,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{iccid1,jdbcType=VARCHAR}, #{iccid5,jdbcType=VARCHAR}, 
+      #{iccid6,jdbcType=VARCHAR}, #{seedIccid,jdbcType=VARCHAR}, #{signalLevel,jdbcType=INTEGER}, 
+      #{version,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbOModelRecord" >
+    insert into tb_o_model_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        record_id,
+      </if>
+      <if test="topic != null" >
+        topic,
+      </if>
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="messageQos != null" >
+        message_qos,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="cardType != null" >
+        card_type,
+      </if>
+      <if test="command != null" >
+        command,
+      </if>
+      <if test="smsMsg != null" >
+        sms_msg,
+      </if>
+      <if test="iccid != null" >
+        iccid,
+      </if>
+      <if test="iccid1 != null" >
+        iccid1,
+      </if>
+      <if test="iccid5 != null" >
+        iccid5,
+      </if>
+      <if test="iccid6 != null" >
+        iccid6,
+      </if>
+      <if test="seedIccid != null" >
+        seed_iccid,
+      </if>
+      <if test="signalLevel != null" >
+        signal_level,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="messageContent != null" >
+        message_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="topic != null" >
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="messageQos != null" >
+        #{messageQos,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=INTEGER},
+      </if>
+      <if test="command != null" >
+        #{command,jdbcType=VARCHAR},
+      </if>
+      <if test="smsMsg != null" >
+        #{smsMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid1 != null" >
+        #{iccid1,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid5 != null" >
+        #{iccid5,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid6 != null" >
+        #{iccid6,jdbcType=VARCHAR},
+      </if>
+      <if test="seedIccid != null" >
+        #{seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="signalLevel != null" >
+        #{signalLevel,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbOModelRecordExample" resultType="java.lang.Integer" >
+    select count(*) from tb_o_model_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_o_model_record
+    <set >
+      <if test="record.recordId != null" >
+        record_id = #{record.recordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.topic != null" >
+        topic = #{record.topic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageId != null" >
+        message_id = #{record.messageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageQos != null" >
+        message_qos = #{record.messageQos,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cardId != null" >
+        card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardType != null" >
+        card_type = #{record.cardType,jdbcType=INTEGER},
+      </if>
+      <if test="record.command != null" >
+        command = #{record.command,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsMsg != null" >
+        sms_msg = #{record.smsMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid != null" >
+        iccid = #{record.iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid1 != null" >
+        iccid1 = #{record.iccid1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid5 != null" >
+        iccid5 = #{record.iccid5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid6 != null" >
+        iccid6 = #{record.iccid6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seedIccid != null" >
+        seed_iccid = #{record.seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signalLevel != null" >
+        signal_level = #{record.signalLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageContent != null" >
+        message_content = #{record.messageContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_o_model_record
+    set record_id = #{record.recordId,jdbcType=INTEGER},
+      topic = #{record.topic,jdbcType=VARCHAR},
+      message_id = #{record.messageId,jdbcType=INTEGER},
+      message_qos = #{record.messageQos,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      card_id = #{record.cardId,jdbcType=VARCHAR},
+      card_type = #{record.cardType,jdbcType=INTEGER},
+      command = #{record.command,jdbcType=VARCHAR},
+      sms_msg = #{record.smsMsg,jdbcType=VARCHAR},
+      iccid = #{record.iccid,jdbcType=VARCHAR},
+      iccid1 = #{record.iccid1,jdbcType=VARCHAR},
+      iccid5 = #{record.iccid5,jdbcType=VARCHAR},
+      iccid6 = #{record.iccid6,jdbcType=VARCHAR},
+      seed_iccid = #{record.seedIccid,jdbcType=VARCHAR},
+      signal_level = #{record.signalLevel,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=VARCHAR},
+      message_content = #{record.messageContent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSTask" >
+    <id column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="task_type" property="taskType" jdbcType="VARCHAR" />
+    <result column="task_count" property="taskCount" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="state_time" property="stateTime" jdbcType="TIMESTAMP" />
+    <result column="suc_count" property="sucCount" jdbcType="INTEGER" />
+    <result column="fail_count" property="failCount" jdbcType="INTEGER" />
+    <result column="success_msg" property="successMsg" jdbcType="VARCHAR" />
+    <result column="fail_msg" property="failMsg" jdbcType="VARCHAR" />
+    <result column="req_seq" property="reqSeq" jdbcType="VARCHAR" />
+    <result column="notify_url" property="notifyUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="if_send" property="ifSend" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    task_id, cust_id, task_type, task_count, state, state_time, suc_count, fail_count, 
+    success_msg, fail_msg, req_seq, notify_url, create_time, if_send
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_s_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSTaskExample" >
+    delete from tb_s_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSTask" >
+    insert into tb_s_task (task_id, cust_id, task_type, 
+      task_count, state, state_time, 
+      suc_count, fail_count, success_msg, 
+      fail_msg, req_seq, notify_url, 
+      create_time, if_send)
+    values (#{taskId,jdbcType=INTEGER}, #{custId,jdbcType=VARCHAR}, #{taskType,jdbcType=VARCHAR}, 
+      #{taskCount,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, #{stateTime,jdbcType=TIMESTAMP}, 
+      #{sucCount,jdbcType=INTEGER}, #{failCount,jdbcType=INTEGER}, #{successMsg,jdbcType=VARCHAR}, 
+      #{failMsg,jdbcType=VARCHAR}, #{reqSeq,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{ifSend,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSTask" >
+    insert into tb_s_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="taskType != null" >
+        task_type,
+      </if>
+      <if test="taskCount != null" >
+        task_count,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="stateTime != null" >
+        state_time,
+      </if>
+      <if test="sucCount != null" >
+        suc_count,
+      </if>
+      <if test="failCount != null" >
+        fail_count,
+      </if>
+      <if test="successMsg != null" >
+        success_msg,
+      </if>
+      <if test="failMsg != null" >
+        fail_msg,
+      </if>
+      <if test="reqSeq != null" >
+        req_seq,
+      </if>
+      <if test="notifyUrl != null" >
+        notify_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="ifSend != null" >
+        if_send,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null" >
+        #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCount != null" >
+        #{taskCount,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null" >
+        #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sucCount != null" >
+        #{sucCount,jdbcType=INTEGER},
+      </if>
+      <if test="failCount != null" >
+        #{failCount,jdbcType=INTEGER},
+      </if>
+      <if test="successMsg != null" >
+        #{successMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="failMsg != null" >
+        #{failMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSeq != null" >
+        #{reqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null" >
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifSend != null" >
+        #{ifSend,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSTaskExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_task
+    <set >
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskType != null" >
+        task_type = #{record.taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskCount != null" >
+        task_count = #{record.taskCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateTime != null" >
+        state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sucCount != null" >
+        suc_count = #{record.sucCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.failCount != null" >
+        fail_count = #{record.failCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.successMsg != null" >
+        success_msg = #{record.successMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.failMsg != null" >
+        fail_msg = #{record.failMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqSeq != null" >
+        req_seq = #{record.reqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyUrl != null" >
+        notify_url = #{record.notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ifSend != null" >
+        if_send = #{record.ifSend,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_task
+    set task_id = #{record.taskId,jdbcType=INTEGER},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      task_type = #{record.taskType,jdbcType=VARCHAR},
+      task_count = #{record.taskCount,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=VARCHAR},
+      state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      suc_count = #{record.sucCount,jdbcType=INTEGER},
+      fail_count = #{record.failCount,jdbcType=INTEGER},
+      success_msg = #{record.successMsg,jdbcType=VARCHAR},
+      fail_msg = #{record.failMsg,jdbcType=VARCHAR},
+      req_seq = #{record.reqSeq,jdbcType=VARCHAR},
+      notify_url = #{record.notifyUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      if_send = #{record.ifSend,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSTask" >
+    update tb_s_task
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null" >
+        task_type = #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCount != null" >
+        task_count = #{taskCount,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null" >
+        state_time = #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sucCount != null" >
+        suc_count = #{sucCount,jdbcType=INTEGER},
+      </if>
+      <if test="failCount != null" >
+        fail_count = #{failCount,jdbcType=INTEGER},
+      </if>
+      <if test="successMsg != null" >
+        success_msg = #{successMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="failMsg != null" >
+        fail_msg = #{failMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="reqSeq != null" >
+        req_seq = #{reqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null" >
+        notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifSend != null" >
+        if_send = #{ifSend,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSTask" >
+    update tb_s_task
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=VARCHAR},
+      task_count = #{taskCount,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      state_time = #{stateTime,jdbcType=TIMESTAMP},
+      suc_count = #{sucCount,jdbcType=INTEGER},
+      fail_count = #{failCount,jdbcType=INTEGER},
+      success_msg = #{successMsg,jdbcType=VARCHAR},
+      fail_msg = #{failMsg,jdbcType=VARCHAR},
+      req_seq = #{reqSeq,jdbcType=VARCHAR},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      if_send = #{ifSend,jdbcType=VARCHAR}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getNoAssignTasks"  resultMap="BaseResultMap">
+
+    select * from tb_s_task t where t.state='0'
+
+  </select>
+
+  <update id="updateYesAssignTask">
+
+    update  tb_s_task  t
+    set t.state='1',
+        state_time=now()
+    where t.task_id=#{taskId,jdbcType=INTEGER}
+
+  </update>
+
+</mapper>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSEmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSEmployee" >
+    <result column="EMPLOYEE_ID" property="employeeId" jdbcType="INTEGER" />
+    <result column="EMPLOYEE_NAME" property="employeeName" jdbcType="VARCHAR" />
+    <result column="WORK_NO" property="workNo" jdbcType="VARCHAR" />
+    <result column="WORK_PWD" property="workPwd" jdbcType="VARCHAR" />
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="create_workno" property="createWorkno" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="DEALER_ID" property="dealerId" jdbcType="INTEGER" />
+    <result column="E_ID_CARD" property="eIdCard" jdbcType="VARCHAR" />
+    <result column="E_ID_ADDR" property="eIdAddr" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="IF_VALID" property="ifValid" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="EMPLOYEE_ROLE" property="employeeRole" jdbcType="VARCHAR" />
+    <result column="custid" property="custid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMPLOYEE_ID, EMPLOYEE_NAME, WORK_NO, WORK_PWD, CITY_CODE, create_workno, CREATE_DATE, 
+    DEALER_ID, E_ID_CARD, E_ID_ADDR, contact_phone, IF_VALID, last_login_time, EMPLOYEE_ROLE, 
+    custid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSEmployeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSEmployeeExample" >
+    delete from tb_s_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSEmployee" >
+    insert into tb_s_employee (EMPLOYEE_ID, EMPLOYEE_NAME, WORK_NO, 
+      WORK_PWD, CITY_CODE, create_workno, 
+      CREATE_DATE, DEALER_ID, E_ID_CARD, 
+      E_ID_ADDR, contact_phone, IF_VALID, 
+      last_login_time, EMPLOYEE_ROLE, custid
+      )
+    values (#{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{workNo,jdbcType=VARCHAR}, 
+      #{workPwd,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{createWorkno,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{dealerId,jdbcType=INTEGER}, #{eIdCard,jdbcType=VARCHAR}, 
+      #{eIdAddr,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, #{ifValid,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{employeeRole,jdbcType=VARCHAR}, #{custid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSEmployee" >
+    insert into tb_s_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        EMPLOYEE_ID,
+      </if>
+      <if test="employeeName != null" >
+        EMPLOYEE_NAME,
+      </if>
+      <if test="workNo != null" >
+        WORK_NO,
+      </if>
+      <if test="workPwd != null" >
+        WORK_PWD,
+      </if>
+      <if test="cityCode != null" >
+        CITY_CODE,
+      </if>
+      <if test="createWorkno != null" >
+        create_workno,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="dealerId != null" >
+        DEALER_ID,
+      </if>
+      <if test="eIdCard != null" >
+        E_ID_CARD,
+      </if>
+      <if test="eIdAddr != null" >
+        E_ID_ADDR,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="ifValid != null" >
+        IF_VALID,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="employeeRole != null" >
+        EMPLOYEE_ROLE,
+      </if>
+      <if test="custid != null" >
+        custid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workPwd != null" >
+        #{workPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createWorkno != null" >
+        #{createWorkno,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealerId != null" >
+        #{dealerId,jdbcType=INTEGER},
+      </if>
+      <if test="eIdCard != null" >
+        #{eIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="eIdAddr != null" >
+        #{eIdAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ifValid != null" >
+        #{ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeRole != null" >
+        #{employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="custid != null" >
+        #{custid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSEmployeeExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_employee
+    <set >
+      <if test="record.employeeId != null" >
+        EMPLOYEE_ID = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeName != null" >
+        EMPLOYEE_NAME = #{record.employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workNo != null" >
+        WORK_NO = #{record.workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workPwd != null" >
+        WORK_PWD = #{record.workPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null" >
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createWorkno != null" >
+        create_workno = #{record.createWorkno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealerId != null" >
+        DEALER_ID = #{record.dealerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.eIdCard != null" >
+        E_ID_CARD = #{record.eIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eIdAddr != null" >
+        E_ID_ADDR = #{record.eIdAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhone != null" >
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifValid != null" >
+        IF_VALID = #{record.ifValid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.employeeRole != null" >
+        EMPLOYEE_ROLE = #{record.employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custid != null" >
+        custid = #{record.custid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_employee
+    set EMPLOYEE_ID = #{record.employeeId,jdbcType=INTEGER},
+      EMPLOYEE_NAME = #{record.employeeName,jdbcType=VARCHAR},
+      WORK_NO = #{record.workNo,jdbcType=VARCHAR},
+      WORK_PWD = #{record.workPwd,jdbcType=VARCHAR},
+      CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      create_workno = #{record.createWorkno,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      DEALER_ID = #{record.dealerId,jdbcType=INTEGER},
+      E_ID_CARD = #{record.eIdCard,jdbcType=VARCHAR},
+      E_ID_ADDR = #{record.eIdAddr,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      IF_VALID = #{record.ifValid,jdbcType=VARCHAR},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      EMPLOYEE_ROLE = #{record.employeeRole,jdbcType=VARCHAR},
+      custid = #{record.custid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+   <update id="updateStateById">
+
+    update tb_s_employee
+    set state = #{state,jdbcType=VARCHAR}
+    where  EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER}
+
+    </update>
+
+
+</mapper>

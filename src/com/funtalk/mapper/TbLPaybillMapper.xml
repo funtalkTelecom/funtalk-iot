@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbLPaybillMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbLPaybill" >
+    <id column="pay_id" property="payId" jdbcType="INTEGER" />
+    <result column="bill_id" property="billId" jdbcType="INTEGER" />
+    <result column="bill_date" property="billDate" jdbcType="INTEGER" />
+    <result column="bill_item" property="billItem" jdbcType="VARCHAR" />
+    <result column="deposit_id" property="depositId" jdbcType="INTEGER" />
+    <result column="de_code" property="deCode" jdbcType="VARCHAR" />
+    <result column="pay_amount" property="payAmount" jdbcType="INTEGER" />
+    <result column="pay_mode" property="payMode" jdbcType="VARCHAR" />
+    <result column="charge_id" property="chargeId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pay_id, bill_id, bill_date, bill_item, deposit_id, de_code, pay_amount, pay_mode, 
+    charge_id, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbLPaybillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_l_paybill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_l_paybill
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_l_paybill
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbLPaybillExample" >
+    delete from tb_l_paybill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbLPaybill" >
+    insert into tb_l_paybill (pay_id, bill_id, bill_date, 
+      bill_item, deposit_id, de_code, 
+      pay_amount, pay_mode, charge_id, 
+      create_time)
+    values (#{payId,jdbcType=INTEGER}, #{billId,jdbcType=INTEGER}, #{billDate,jdbcType=INTEGER}, 
+      #{billItem,jdbcType=VARCHAR}, #{depositId,jdbcType=INTEGER}, #{deCode,jdbcType=VARCHAR}, 
+      #{payAmount,jdbcType=INTEGER}, #{payMode,jdbcType=VARCHAR}, #{chargeId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbLPaybill" >
+    insert into tb_l_paybill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="billId != null" >
+        bill_id,
+      </if>
+      <if test="billDate != null" >
+        bill_date,
+      </if>
+      <if test="billItem != null" >
+        bill_item,
+      </if>
+      <if test="depositId != null" >
+        deposit_id,
+      </if>
+      <if test="deCode != null" >
+        de_code,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="payMode != null" >
+        pay_mode,
+      </if>
+      <if test="chargeId != null" >
+        charge_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="billId != null" >
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="billDate != null" >
+        #{billDate,jdbcType=INTEGER},
+      </if>
+      <if test="billItem != null" >
+        #{billItem,jdbcType=VARCHAR},
+      </if>
+      <if test="depositId != null" >
+        #{depositId,jdbcType=INTEGER},
+      </if>
+      <if test="deCode != null" >
+        #{deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payMode != null" >
+        #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeId != null" >
+        #{chargeId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbLPaybillExample" resultType="java.lang.Integer" >
+    select count(*) from tb_l_paybill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_l_paybill
+    <set >
+      <if test="record.payId != null" >
+        pay_id = #{record.payId,jdbcType=INTEGER},
+      </if>
+      <if test="record.billId != null" >
+        bill_id = #{record.billId,jdbcType=INTEGER},
+      </if>
+      <if test="record.billDate != null" >
+        bill_date = #{record.billDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.billItem != null" >
+        bill_item = #{record.billItem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depositId != null" >
+        deposit_id = #{record.depositId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deCode != null" >
+        de_code = #{record.deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payAmount != null" >
+        pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.payMode != null" >
+        pay_mode = #{record.payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeId != null" >
+        charge_id = #{record.chargeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_l_paybill
+    set pay_id = #{record.payId,jdbcType=INTEGER},
+      bill_id = #{record.billId,jdbcType=INTEGER},
+      bill_date = #{record.billDate,jdbcType=INTEGER},
+      bill_item = #{record.billItem,jdbcType=VARCHAR},
+      deposit_id = #{record.depositId,jdbcType=INTEGER},
+      de_code = #{record.deCode,jdbcType=VARCHAR},
+      pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      pay_mode = #{record.payMode,jdbcType=VARCHAR},
+      charge_id = #{record.chargeId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbLPaybill" >
+    update tb_l_paybill
+    <set >
+      <if test="billId != null" >
+        bill_id = #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="billDate != null" >
+        bill_date = #{billDate,jdbcType=INTEGER},
+      </if>
+      <if test="billItem != null" >
+        bill_item = #{billItem,jdbcType=VARCHAR},
+      </if>
+      <if test="depositId != null" >
+        deposit_id = #{depositId,jdbcType=INTEGER},
+      </if>
+      <if test="deCode != null" >
+        de_code = #{deCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payMode != null" >
+        pay_mode = #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeId != null" >
+        charge_id = #{chargeId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbLPaybill" >
+    update tb_l_paybill
+    set bill_id = #{billId,jdbcType=INTEGER},
+      bill_date = #{billDate,jdbcType=INTEGER},
+      bill_item = #{billItem,jdbcType=VARCHAR},
+      deposit_id = #{depositId,jdbcType=INTEGER},
+      de_code = #{deCode,jdbcType=VARCHAR},
+      pay_amount = #{payAmount,jdbcType=INTEGER},
+      pay_mode = #{payMode,jdbcType=VARCHAR},
+      charge_id = #{chargeId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+</mapper>

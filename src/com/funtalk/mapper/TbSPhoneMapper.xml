@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSPhoneMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSPhone" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="service_kind" property="serviceKind" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="iccid_2" property="iccid2" jdbcType="VARCHAR" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="if_seed" property="ifSeed" jdbcType="INTEGER" />
+    <result column="seed_iccid" property="seedIccid" jdbcType="VARCHAR" />
+    <result column="seedCardData" property="seedcarddata" jdbcType="VARCHAR" />
+    <result column="data1" property="data1" jdbcType="VARCHAR" />
+    <result column="data2" property="data2" jdbcType="VARCHAR" />
+    <result column="data3" property="data3" jdbcType="VARCHAR" />
+    <result column="data4" property="data4" jdbcType="VARCHAR" />
+    <result column="data5" property="data5" jdbcType="VARCHAR" />
+    <result column="data6" property="data6" jdbcType="VARCHAR" />
+    <result column="data7" property="data7" jdbcType="VARCHAR" />
+    <result column="data8" property="data8" jdbcType="VARCHAR" />
+    <result column="data9" property="data9" jdbcType="VARCHAR" />
+    <result column="data10" property="data10" jdbcType="VARCHAR" />
+    <result column="changeData" property="changedata" jdbcType="VARCHAR" />
+    <result column="delData" property="deldata" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="state_time" property="stateTime" jdbcType="TIMESTAMP" />
+    <result column="phone_channel" property="phoneChannel" jdbcType="VARCHAR" />
+    <result column="if_use" property="ifUse" jdbcType="VARCHAR" />
+    <result column="now_use" property="nowUse" jdbcType="VARCHAR" />
+    <result column="rssilevel" property="rssilevel" jdbcType="VARCHAR" />
+    <result column="delay" property="delay" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, service_kind, city_code, service_id, iccid, iccid_2, card_id, if_seed, seed_iccid, 
+    seedCardData, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, 
+    changeData, delData, create_time, state, state_time, phone_channel, if_use, now_use, 
+    rssilevel, delay
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSPhoneExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_phone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_s_phone
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_phone
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSPhoneExample" >
+    delete from tb_s_phone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSPhone" >
+    insert into tb_s_phone (id, service_kind, city_code, 
+      service_id, iccid, iccid_2, 
+      card_id, if_seed, seed_iccid, 
+      seedCardData, data1, data2, 
+      data3, data4, data5, 
+      data6, data7, data8, 
+      data9, data10, changeData, 
+      delData, create_time, state, 
+      state_time, phone_channel, if_use, 
+      now_use, rssilevel, delay
+      )
+    values (#{id,jdbcType=INTEGER}, #{serviceKind,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{serviceId,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{iccid2,jdbcType=VARCHAR}, 
+      #{cardId,jdbcType=VARCHAR}, #{ifSeed,jdbcType=INTEGER}, #{seedIccid,jdbcType=VARCHAR}, 
+      #{seedcarddata,jdbcType=VARCHAR}, #{data1,jdbcType=VARCHAR}, #{data2,jdbcType=VARCHAR}, 
+      #{data3,jdbcType=VARCHAR}, #{data4,jdbcType=VARCHAR}, #{data5,jdbcType=VARCHAR}, 
+      #{data6,jdbcType=VARCHAR}, #{data7,jdbcType=VARCHAR}, #{data8,jdbcType=VARCHAR}, 
+      #{data9,jdbcType=VARCHAR}, #{data10,jdbcType=VARCHAR}, #{changedata,jdbcType=VARCHAR}, 
+      #{deldata,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, 
+      #{stateTime,jdbcType=TIMESTAMP}, #{phoneChannel,jdbcType=VARCHAR}, #{ifUse,jdbcType=VARCHAR}, 
+      #{nowUse,jdbcType=VARCHAR}, #{rssilevel,jdbcType=VARCHAR}, #{delay,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSPhone" >
+    insert into tb_s_phone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serviceKind != null" >
+        service_kind,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="iccid != null" >
+        iccid,
+      </if>
+      <if test="iccid2 != null" >
+        iccid_2,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="ifSeed != null" >
+        if_seed,
+      </if>
+      <if test="seedIccid != null" >
+        seed_iccid,
+      </if>
+      <if test="seedcarddata != null" >
+        seedCardData,
+      </if>
+      <if test="data1 != null" >
+        data1,
+      </if>
+      <if test="data2 != null" >
+        data2,
+      </if>
+      <if test="data3 != null" >
+        data3,
+      </if>
+      <if test="data4 != null" >
+        data4,
+      </if>
+      <if test="data5 != null" >
+        data5,
+      </if>
+      <if test="data6 != null" >
+        data6,
+      </if>
+      <if test="data7 != null" >
+        data7,
+      </if>
+      <if test="data8 != null" >
+        data8,
+      </if>
+      <if test="data9 != null" >
+        data9,
+      </if>
+      <if test="data10 != null" >
+        data10,
+      </if>
+      <if test="changedata != null" >
+        changeData,
+      </if>
+      <if test="deldata != null" >
+        delData,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="stateTime != null" >
+        state_time,
+      </if>
+      <if test="phoneChannel != null" >
+        phone_channel,
+      </if>
+      <if test="ifUse != null" >
+        if_use,
+      </if>
+      <if test="nowUse != null" >
+        now_use,
+      </if>
+      <if test="rssilevel != null" >
+        rssilevel,
+      </if>
+      <if test="delay != null" >
+        delay,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serviceKind != null" >
+        #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid2 != null" >
+        #{iccid2,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="ifSeed != null" >
+        #{ifSeed,jdbcType=INTEGER},
+      </if>
+      <if test="seedIccid != null" >
+        #{seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="seedcarddata != null" >
+        #{seedcarddata,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null" >
+        #{data1,jdbcType=VARCHAR},
+      </if>
+      <if test="data2 != null" >
+        #{data2,jdbcType=VARCHAR},
+      </if>
+      <if test="data3 != null" >
+        #{data3,jdbcType=VARCHAR},
+      </if>
+      <if test="data4 != null" >
+        #{data4,jdbcType=VARCHAR},
+      </if>
+      <if test="data5 != null" >
+        #{data5,jdbcType=VARCHAR},
+      </if>
+      <if test="data6 != null" >
+        #{data6,jdbcType=VARCHAR},
+      </if>
+      <if test="data7 != null" >
+        #{data7,jdbcType=VARCHAR},
+      </if>
+      <if test="data8 != null" >
+        #{data8,jdbcType=VARCHAR},
+      </if>
+      <if test="data9 != null" >
+        #{data9,jdbcType=VARCHAR},
+      </if>
+      <if test="data10 != null" >
+        #{data10,jdbcType=VARCHAR},
+      </if>
+      <if test="changedata != null" >
+        #{changedata,jdbcType=VARCHAR},
+      </if>
+      <if test="deldata != null" >
+        #{deldata,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null" >
+        #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneChannel != null" >
+        #{phoneChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="ifUse != null" >
+        #{ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="nowUse != null" >
+        #{nowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="rssilevel != null" >
+        #{rssilevel,jdbcType=VARCHAR},
+      </if>
+      <if test="delay != null" >
+        #{delay,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSPhoneExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_phone
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_phone
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceKind != null" >
+        service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null" >
+        city_code = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null" >
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid != null" >
+        iccid = #{record.iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid2 != null" >
+        iccid_2 = #{record.iccid2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null" >
+        card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifSeed != null" >
+        if_seed = #{record.ifSeed,jdbcType=INTEGER},
+      </if>
+      <if test="record.seedIccid != null" >
+        seed_iccid = #{record.seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seedcarddata != null" >
+        seedCardData = #{record.seedcarddata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data1 != null" >
+        data1 = #{record.data1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data2 != null" >
+        data2 = #{record.data2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data3 != null" >
+        data3 = #{record.data3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data4 != null" >
+        data4 = #{record.data4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data5 != null" >
+        data5 = #{record.data5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data6 != null" >
+        data6 = #{record.data6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data7 != null" >
+        data7 = #{record.data7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data8 != null" >
+        data8 = #{record.data8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data9 != null" >
+        data9 = #{record.data9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data10 != null" >
+        data10 = #{record.data10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changedata != null" >
+        changeData = #{record.changedata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deldata != null" >
+        delData = #{record.deldata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateTime != null" >
+        state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.phoneChannel != null" >
+        phone_channel = #{record.phoneChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifUse != null" >
+        if_use = #{record.ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nowUse != null" >
+        now_use = #{record.nowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rssilevel != null" >
+        rssilevel = #{record.rssilevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delay != null" >
+        delay = #{record.delay,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_phone
+    set id = #{record.id,jdbcType=INTEGER},
+      service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      city_code = #{record.cityCode,jdbcType=VARCHAR},
+      service_id = #{record.serviceId,jdbcType=VARCHAR},
+      iccid = #{record.iccid,jdbcType=VARCHAR},
+      iccid_2 = #{record.iccid2,jdbcType=VARCHAR},
+      card_id = #{record.cardId,jdbcType=VARCHAR},
+      if_seed = #{record.ifSeed,jdbcType=INTEGER},
+      seed_iccid = #{record.seedIccid,jdbcType=VARCHAR},
+      seedCardData = #{record.seedcarddata,jdbcType=VARCHAR},
+      data1 = #{record.data1,jdbcType=VARCHAR},
+      data2 = #{record.data2,jdbcType=VARCHAR},
+      data3 = #{record.data3,jdbcType=VARCHAR},
+      data4 = #{record.data4,jdbcType=VARCHAR},
+      data5 = #{record.data5,jdbcType=VARCHAR},
+      data6 = #{record.data6,jdbcType=VARCHAR},
+      data7 = #{record.data7,jdbcType=VARCHAR},
+      data8 = #{record.data8,jdbcType=VARCHAR},
+      data9 = #{record.data9,jdbcType=VARCHAR},
+      data10 = #{record.data10,jdbcType=VARCHAR},
+      changeData = #{record.changedata,jdbcType=VARCHAR},
+      delData = #{record.deldata,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=VARCHAR},
+      state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      phone_channel = #{record.phoneChannel,jdbcType=VARCHAR},
+      if_use = #{record.ifUse,jdbcType=VARCHAR},
+      now_use = #{record.nowUse,jdbcType=VARCHAR},
+      rssilevel = #{record.rssilevel,jdbcType=VARCHAR},
+      delay = #{record.delay,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSPhone" >
+    update tb_s_phone
+    <set >
+      <if test="serviceKind != null" >
+        service_kind = #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null" >
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        iccid = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid2 != null" >
+        iccid_2 = #{iccid2,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="ifSeed != null" >
+        if_seed = #{ifSeed,jdbcType=INTEGER},
+      </if>
+      <if test="seedIccid != null" >
+        seed_iccid = #{seedIccid,jdbcType=VARCHAR},
+      </if>
+      <if test="seedcarddata != null" >
+        seedCardData = #{seedcarddata,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null" >
+        data1 = #{data1,jdbcType=VARCHAR},
+      </if>
+      <if test="data2 != null" >
+        data2 = #{data2,jdbcType=VARCHAR},
+      </if>
+      <if test="data3 != null" >
+        data3 = #{data3,jdbcType=VARCHAR},
+      </if>
+      <if test="data4 != null" >
+        data4 = #{data4,jdbcType=VARCHAR},
+      </if>
+      <if test="data5 != null" >
+        data5 = #{data5,jdbcType=VARCHAR},
+      </if>
+      <if test="data6 != null" >
+        data6 = #{data6,jdbcType=VARCHAR},
+      </if>
+      <if test="data7 != null" >
+        data7 = #{data7,jdbcType=VARCHAR},
+      </if>
+      <if test="data8 != null" >
+        data8 = #{data8,jdbcType=VARCHAR},
+      </if>
+      <if test="data9 != null" >
+        data9 = #{data9,jdbcType=VARCHAR},
+      </if>
+      <if test="data10 != null" >
+        data10 = #{data10,jdbcType=VARCHAR},
+      </if>
+      <if test="changedata != null" >
+        changeData = #{changedata,jdbcType=VARCHAR},
+      </if>
+      <if test="deldata != null" >
+        delData = #{deldata,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="stateTime != null" >
+        state_time = #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneChannel != null" >
+        phone_channel = #{phoneChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="ifUse != null" >
+        if_use = #{ifUse,jdbcType=VARCHAR},
+      </if>
+      <if test="nowUse != null" >
+        now_use = #{nowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="rssilevel != null" >
+        rssilevel = #{rssilevel,jdbcType=VARCHAR},
+      </if>
+      <if test="delay != null" >
+        delay = #{delay,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSPhone" >
+    update tb_s_phone
+    set service_kind = #{serviceKind,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      service_id = #{serviceId,jdbcType=VARCHAR},
+      iccid = #{iccid,jdbcType=VARCHAR},
+      iccid_2 = #{iccid2,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      if_seed = #{ifSeed,jdbcType=INTEGER},
+      seed_iccid = #{seedIccid,jdbcType=VARCHAR},
+      seedCardData = #{seedcarddata,jdbcType=VARCHAR},
+      data1 = #{data1,jdbcType=VARCHAR},
+      data2 = #{data2,jdbcType=VARCHAR},
+      data3 = #{data3,jdbcType=VARCHAR},
+      data4 = #{data4,jdbcType=VARCHAR},
+      data5 = #{data5,jdbcType=VARCHAR},
+      data6 = #{data6,jdbcType=VARCHAR},
+      data7 = #{data7,jdbcType=VARCHAR},
+      data8 = #{data8,jdbcType=VARCHAR},
+      data9 = #{data9,jdbcType=VARCHAR},
+      data10 = #{data10,jdbcType=VARCHAR},
+      changeData = #{changedata,jdbcType=VARCHAR},
+      delData = #{deldata,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
+      state_time = #{stateTime,jdbcType=TIMESTAMP},
+      phone_channel = #{phoneChannel,jdbcType=VARCHAR},
+      if_use = #{ifUse,jdbcType=VARCHAR},
+      now_use = #{nowUse,jdbcType=VARCHAR},
+      rssilevel = #{rssilevel,jdbcType=VARCHAR},
+      delay = #{delay,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getNoUsePhones"  resultType="String">
+
+    SELECT service_id from tb_s_phone where state='0' ORDER by create_date limit #{needPhones,jdbcType=INTEGER}
+
+  </select>
+
+  <update id="updateUseState">
+
+    UPDATE  tb_s_phone t
+    set t.state='1'
+    where t.service_id=#{serviceId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getPhoneBaseDataByIccid" resultType="com.funtalk.pojo.TbSPhone">
+
+    SELECT * from tb_s_phone t where t.iccid=#{iccid,jdbcType=VARCHAR} Limit 1
+
+  </select>
+
+  <select id="getPhoneDelDateForIccids" resultType="java.util.Map">
+
+    SELECT iccid,delData FROM  tb_s_phone  where iccid in(#{iccids,jdbcType=VARCHAR})
+  </select>
+
+  <update id="updateUseCardId">
+
+    update tb_s_phone t
+    set t.card_id=#{cardid,jdbcType=VARCHAR},
+         t.if_use=ifnull(if_use,0)+1
+    where t.iccid=#{iccid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getCanSwitchPhone" resultType="com.funtalk.pojo.TbSPhone">
+
+   select * from tb_s_phone  where service_id in(
+      select a.phone_a from
+         (select t.phone_a from tb_s_subtask_test t where t.state='1' order by t.state_date  limit 1) a)
+   and state='0' and if_seed='0' limit 1
+
+  </select>
+
+  <update id="updateSwitchPhoneState">
+    update tb_s_phone t
+    <set>
+      <if test="state != null " >
+      t.state=#{state,jdbcType=VARCHAR},
+      </if>
+    <if test="cardid != null " >
+      t.card_id =#{cardid,jdbcType=VARCHAR},
+    </if>
+    </set>
+     where t.iccid=#{iccid,jdbcType=VARCHAR}
+  </update>
+
+
+
+</mapper>

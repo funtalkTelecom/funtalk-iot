@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.funtalk.mapper.TbSSubtaskResultAMapper" >
+  <resultMap id="BaseResultMap" type="com.funtalk.pojo.TbSSubtaskResultA" >
+    <id column="result_id" property="resultId" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="phone_a" property="phoneA" jdbcType="VARCHAR" />
+    <result column="iccid_a" property="iccidA" jdbcType="VARCHAR" />
+    <result column="service_kind" property="serviceKind" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="phone_b" property="phoneB" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="error_info" property="errorInfo" jdbcType="VARCHAR" />
+    <result column="work_no" property="workNo" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    result_id, task_id, cust_id, order_no, phone_a, iccid_a, service_kind, city_code, 
+    phone_b, msg, card_id, create_time, state, send_time, error_info, work_no, employee_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.funtalk.pojo.TbSSubtaskResultAExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_s_subtask_result_a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_s_subtask_result_a
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_s_subtask_result_a
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.funtalk.pojo.TbSSubtaskResultAExample" >
+    delete from tb_s_subtask_result_a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.funtalk.pojo.TbSSubtaskResultA" >
+    insert into tb_s_subtask_result_a (result_id, task_id, cust_id, 
+      order_no, phone_a, iccid_a, 
+      service_kind, city_code, phone_b, 
+      msg, card_id, create_time, 
+      state, send_time, error_info, 
+      work_no, employee_id)
+    values (#{resultId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{custId,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{phoneA,jdbcType=VARCHAR}, #{iccidA,jdbcType=VARCHAR}, 
+      #{serviceKind,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{phoneB,jdbcType=VARCHAR}, 
+      #{msg,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, #{errorInfo,jdbcType=VARCHAR}, 
+      #{workNo,jdbcType=VARCHAR}, #{employeeId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.funtalk.pojo.TbSSubtaskResultA" >
+    insert into tb_s_subtask_result_a
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        result_id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="phoneA != null" >
+        phone_a,
+      </if>
+      <if test="iccidA != null" >
+        iccid_a,
+      </if>
+      <if test="serviceKind != null" >
+        service_kind,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="phoneB != null" >
+        phone_b,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="errorInfo != null" >
+        error_info,
+      </if>
+      <if test="workNo != null" >
+        work_no,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        #{resultId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneA != null" >
+        #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidA != null" >
+        #{iccidA,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceKind != null" >
+        #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneB != null" >
+        #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorInfo != null" >
+        #{errorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.funtalk.pojo.TbSSubtaskResultAExample" resultType="java.lang.Integer" >
+    select count(*) from tb_s_subtask_result_a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_s_subtask_result_a
+    <set >
+      <if test="record.resultId != null" >
+        result_id = #{record.resultId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.custId != null" >
+        cust_id = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneA != null" >
+        phone_a = #{record.phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccidA != null" >
+        iccid_a = #{record.iccidA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceKind != null" >
+        service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null" >
+        city_code = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneB != null" >
+        phone_b = #{record.phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msg != null" >
+        msg = #{record.msg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null" >
+        card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendTime != null" >
+        send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.errorInfo != null" >
+        error_info = #{record.errorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workNo != null" >
+        work_no = #{record.workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_s_subtask_result_a
+    set result_id = #{record.resultId,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=INTEGER},
+      cust_id = #{record.custId,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      phone_a = #{record.phoneA,jdbcType=VARCHAR},
+      iccid_a = #{record.iccidA,jdbcType=VARCHAR},
+      service_kind = #{record.serviceKind,jdbcType=VARCHAR},
+      city_code = #{record.cityCode,jdbcType=VARCHAR},
+      phone_b = #{record.phoneB,jdbcType=VARCHAR},
+      msg = #{record.msg,jdbcType=VARCHAR},
+      card_id = #{record.cardId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=VARCHAR},
+      send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      error_info = #{record.errorInfo,jdbcType=VARCHAR},
+      work_no = #{record.workNo,jdbcType=VARCHAR},
+      employee_id = #{record.employeeId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.funtalk.pojo.TbSSubtaskResultA" >
+    update tb_s_subtask_result_a
+    <set >
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneA != null" >
+        phone_a = #{phoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidA != null" >
+        iccid_a = #{iccidA,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceKind != null" >
+        service_kind = #{serviceKind,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneB != null" >
+        phone_b = #{phoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorInfo != null" >
+        error_info = #{errorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null" >
+        work_no = #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.funtalk.pojo.TbSSubtaskResultA" >
+    update tb_s_subtask_result_a
+    set task_id = #{taskId,jdbcType=INTEGER},
+      cust_id = #{custId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      phone_a = #{phoneA,jdbcType=VARCHAR},
+      iccid_a = #{iccidA,jdbcType=VARCHAR},
+      service_kind = #{serviceKind,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      phone_b = #{phoneB,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      error_info = #{errorInfo,jdbcType=VARCHAR},
+      work_no = #{workNo,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=INTEGER}
+    where result_id = #{resultId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByState" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+  SELECT * FROM tb_s_subtask_result t WHERE t.if_send=#{state,jdbcType=VARCHAR}  ORDER BY create_time  LIMIT  200
+
+  </select>
+
+  <update id="updateState">
+
+    UPDATE  tb_s_subtask_result t SET t.if_send=#{state,jdbcType=VARCHAR},t.err_msg =#{info,jdbcType=VARCHAR}
+    WHERE t.nid in
+    <foreach collection="stateList" item="id" index="index" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+
+  </update>
+
+
+  <update id="updateStateByPhoneA">
+
+  UPDATE  tb_s_subtask_result t SET
+    t.if_send=#{state,jdbcType=VARCHAR},
+    t.send_time = CURTIME()
+  WHERE t.orderno = #{orderNo,jdbcType=VARCHAR}
+  and t.phone_a in
+  <foreach collection="phoneAList" item="item" index="index" open="(" close=")" separator=",">
+    #{item}
+  </foreach>
+  </update>
+
+</mapper>
