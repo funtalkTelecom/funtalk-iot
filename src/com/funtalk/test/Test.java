@@ -48,7 +48,7 @@ public class Test {
 
             try {
                 Thread.sleep(2000);
-                if (j==10)
+                if (j==11)
                     throw new Exception("xyz");
 
                 System.out.println("------j-------"+j);
