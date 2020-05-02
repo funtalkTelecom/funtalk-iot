@@ -9,6 +9,7 @@
 
 #maven ignore
 out/
+src/com/funtalk/test/
 
 #eclipse ignore
 .settings/
