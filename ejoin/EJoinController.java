@@ -34,7 +34,7 @@ public class EJoinController {
 
     @Autowired
     TbSEjoinrecords tbSEjoinrecords;
-    //  1--拨出未接�?2--接通未挂断 3--挂断
+    //  1--拨出未接通 2--接通未挂断 3--挂断
     static Map<String,Integer>  callflag= new HashMap();
 
     @RequestMapping("/api/ejoin/ejtest1")
@@ -74,13 +74,13 @@ public class EJoinController {
 //        //  1.获取32*9张卡
 //        List<TbSChangeiccid> list;
 //        synchronized (list= eJoinService.getDetail("void",-1,32 * 9)) {
-//            //更新状�?
+//            //更新状态
 //            eJoinService.statusUp(0, list);
 //        }
 //
 //        //  更新卡的ip
 //        eJoinService.fetchCard(ip,list);
-//        //写卡计数�?
+//        //写卡计数器
 //        int sum = 0;
 //        //端口
 //        int port = 1;
@@ -160,8 +160,8 @@ public class EJoinController {
     }
 
 
-    //接收一正设备报�?
-    @RequestMapping("/api/ejoin/report")
+    //接收一正设备报告
+    @RequestMapping("/api/ejoin/ejtest")
     @ResponseBody
     public void getReport(@RequestBody Map<String, Object> map) {
         try {
@@ -188,7 +188,6 @@ public class EJoinController {
                     String ip;
                     String port;
                     int alert;
-                    String caller;
                     String callee;
 
 
@@ -199,7 +198,6 @@ public class EJoinController {
                     ip=tbPIpMap.getPublic_();
 
                     begin=(int)map.get("begin");
-
                     alert=(int)map.get("alert");
                     reason=(String)map.get("reason");
                     callee=(String)map.get("callee");
@@ -210,17 +208,14 @@ public class EJoinController {
                     tbSEjoinrecords.setAnswer(sdf.format(new Date((long)answer*1000)));
                     tbSEjoinrecords.setBegin(sdf.format(new Date((long)begin*1000)));
                     tbSEjoinrecords.setCallee(callee);
-
                     tbSEjoinrecords.setEnd(sdf.format(new Date((long)end*1000)));
                     tbSEjoinrecords.setIp(ip);
                     tbSEjoinrecords.setPort(port);
                     tbSEjoinrecords.setReason(reason);
 
-
-
                     String userName="";
                     String password="";
-                    //空闲�?
+                    //空闲卡
                     TbSChangeiccid otherCard = new TbSChangeiccid();
                     String cluster = "";
 
@@ -236,15 +231,19 @@ public class EJoinController {
                     if(end-answer%60>0)
                         used++;
 
-                    //更新卡的日使用量、月使用�?
+                    //更新卡的日使用量、月使用量
                     eJoinService.reportUp((double)used, (double)used, iccid);
-                    //获取当前生效卡实�?
+                    //获取当前生效卡实体
                     TbSChangeiccid thisCard = eJoinService.findByIccid(iccid);
 
                     tbSEjoinrecords.setCaller(thisCard.getPhoneNum());
                     ejoinRecordsService.insertRecord(tbSEjoinrecords);
                     //超限
                     if ( thisCard.getDayDur()>=thisCard.getDayMax()  || thisCard.getMonDur() >= thisCard.getMonMax()) {
+                        TbSEjoinrecords tbSEjoinrecords1=new TbSEjoinrecords();
+                        tbSEjoinrecords1.setCaller("start switch");
+                        tbSEjoinrecords1.setCallee("switch finished");
+                        tbSEjoinrecords1.setBegin(sdf.format(System.currentTimeMillis()));
                         System.out.println("-------------------start switch-------------------");
                         //锁定端口
                         OPMethod(port, ip, userName, password, "lock");
@@ -256,7 +255,7 @@ public class EJoinController {
                             if (cluster.equals("1") || cluster.equals("2") || cluster.equals("3")) {
 
                                 synchronized (this) {
-                                    //同端口用完找客户名下空闲�?
+                                    //同端口用完找客户名下空闲卡
                                     try {
                                         otherCard = eJoinService.getDetail(thisCard.getCustId(), -1, 1).get(0);
                                     }catch (NullPointerException e) {
@@ -286,7 +285,7 @@ public class EJoinController {
                                             System.out.println(ip + ":" + port + "switch " + otherCard.getIccid() + " error");
                                             return;
                                         }
-                                        //更新状�?
+                                        //更新状态
                                         eJoinService.upByIccid(ip, port, 1, otherCard.getIccid());
                                         eJoinService.upByIccid("", "", 0, iccid);
                                     }
@@ -304,11 +303,13 @@ public class EJoinController {
                                         System.out.println(ip + ":" + port + "delete " + iccid + " error");
                                         return;
                                     }
-                                    //把旧卡状态\ip更新�?1
+                                    //把旧卡状态\ip更新为-1
                                     eJoinService.upByIccid("0", "0", -1, iccid);
                                     CCHCMethod(port, cluster, ip, userName, password);
                                     OPMethod(port, ip, userName, password, "unlock");
                                     System.out.println("-------------------switch finished-------------------");
+                                    tbSEjoinrecords1.setEnd(sdf.format(System.currentTimeMillis()));
+                                    ejoinRecordsService.insertRecord(tbSEjoinrecords1);
                                 }
                             }else {
                                 System.out.println("open cluster error");
@@ -406,7 +407,7 @@ public class EJoinController {
         boolean flag=false;
         String userName="";
         String password="";
-        //获取等量储备�?
+        //获取等量储备卡
         List<TbSChangeiccid> newcards = eJoinService.getDetail(cust_id, -1, cards.size());
         if(cards!=null&&cards.size()!=0&&cards.size()==newcards.size()){
             for(int i=0;i<cards.size();i++){
@@ -468,7 +469,7 @@ public class EJoinController {
             }
         }else{
             System.out.println("lack of cards");
-            return "可用卡不�?;
+            return "可用卡不足";
         }
         return "switch success";
     }
@@ -485,7 +486,7 @@ public class EJoinController {
 //        boolean flag=false;
 //        String userName="";
 //        String password="";
-//        //获取等量储备�?
+//        //获取等量储备卡
 //        List<TbSChangeiccid> newcards = eJoinService.getDetail(cust_id, 0, cards.size());
 //        if(cards!=null&&cards.size()!=0&&cards.size()==newcards.size()){
 //            for(int i=0;i<cards.size();i++){
@@ -524,7 +525,7 @@ public class EJoinController {
 //            }
 //        }else{
 //            System.out.println("lack of cards");
-//            return "可用卡不�?;
+//            return "可用卡不足";
 //        }
 //        System.out.println("end in---------------"+(System.currentTimeMillis()-st));
 //        return "switch success";
@@ -542,7 +543,7 @@ public class EJoinController {
 //        boolean flag=false;
 //        String userName="";
 //        String password="";
-//        //获取等量储备�?
+//        //获取等量储备卡
 //        List<TbSChangeiccid> newcards = eJoinService.getDetail(cust_id, -1, cards.size());
 //        if(cards!=null&&cards.size()!=0&&cards.size()==newcards.size()){
 //            for(int i=0;i<cards.size();i++){
@@ -587,7 +588,7 @@ public class EJoinController {
 //            }
 //        }else{
 //            System.out.println("lack of cards");
-//            return "可用卡不�?;
+//            return "可用卡不足";
 //        }
 //        System.out.println("用时------------------"+(System.currentTimeMillis()-st));
 //        return "switch success";
@@ -610,7 +611,7 @@ public class EJoinController {
 
     }
 
-    // 51�?52�?53�?
+    // 51写 52删 53切
     private static boolean CGLAMethod(String port, String cluster,String data,String ip,String userName,String password) {
         if(data!=null) {
             String url = "http://" + ip + "/goip_send_at.html?username="+userName+"&password="+password+"&port=" + port + "&AT=AT%2bCGLA=" +
