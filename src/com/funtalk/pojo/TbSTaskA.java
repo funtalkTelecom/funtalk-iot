@@ -17,6 +17,8 @@ public class TbSTaskA {
 
     private String iccid;
 
+    private String cityA;
+
     private String serviceKind;
 
     private String phoneB;
@@ -262,4 +264,8 @@ public class TbSTaskA {
     public void setRepeatCount(Integer repeatCount) {
         this.repeatCount = repeatCount;
     }
+
+    public String getCityA() { return cityA; }
+
+    public void setCityA(String cityA) {  this.cityA = cityA; }
 }

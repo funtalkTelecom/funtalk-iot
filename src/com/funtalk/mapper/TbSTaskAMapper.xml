@@ -570,6 +570,9 @@
       <if test="iccid != null" >
         iccid = #{iccid,jdbcType=VARCHAR},
       </if>
+      <if test="cityA != null" >
+        city_a = #{cityA,jdbcType=VARCHAR},
+      </if>
       <if test="cardId != null" >
         card_id = #{cardId,jdbcType=VARCHAR},
       </if>

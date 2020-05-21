@@ -155,6 +155,7 @@ public class MqttService {
 
         SqlSession sqlSession=null;
         String  custId="";
+        String  cityCode="";
         String originalIccid =tbSCardinfo.getIccidMaster();
         System.out.println("==INTO==switch-card==thread:"+Thread.currentThread().getName()+",old iccid:"+originalIccid);
 
@@ -179,8 +180,9 @@ public class MqttService {
              sendTask=tbSTaskAList.get(0);
 
              custId = StringUtil.isNotEmpty(sendTask.getCustId())? sendTask.getCustId():"";
+             cityCode= StringUtil.isNotEmpty(sendTask.getCityA())? sendTask.getCityA():"";
 
-             List<TbSCardinfo> tbSCardinfoList =  tbSCardinfoMapper.selectIdleBusinessIccid(custId);
+             List<TbSCardinfo> tbSCardinfoList =  tbSCardinfoMapper.selectIdleBusinessIccid(custId,cityCode);
 
              if (tbSCardinfoList.size()>0) {
 
@@ -205,6 +207,7 @@ public class MqttService {
                  taskParamMap.put("state","1");
                  taskParamMap.put("orderNo",sdf.format(new Date().getTime())+(int)((Math.random()*9+1)*100000)); //orderNo
                  taskParamMap.put("phoneA",idleCardinfo.getServiceId());
+                 taskParamMap.put("cityA",idleCardinfo.getCityA());
                  taskParamMap.put("iccid",idleCardinfo.getIccidMaster());
                  taskParamMap.put("cardId",idleCardinfo.getCardId());
                  taskParamMap.put("serviceKind",idleCardinfo.getServiceKind());
@@ -212,7 +215,6 @@ public class MqttService {
 
                  tbSTaskAMapper.updateStatus(taskParamMap);
                  sqlSession.commit();
-
 
                  originalIccid = idleCardinfo.getIccidMaster();  // 新的ICCID
                  //切卡时 如果是种子卡切业务卡 则lastDel置""
@@ -228,7 +230,8 @@ public class MqttService {
 
           }
 
-          // 没有任务 不切卡 继续上报
+            // 没有任务 不切卡     继续上报
+            // 有任务 没资源 不切卡 继续上报
 
              if ("1".equals(tbSCardinfo.getIfSeed()))
                  createResultData(data,tbSCardinfo,"1");

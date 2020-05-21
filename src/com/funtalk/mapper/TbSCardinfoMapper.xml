@@ -713,10 +713,14 @@
     WHERE if_seed='0' AND state='2HA' and if_use='0'
        AND day_use  &lt; day_total
       <if test="custId != null and custId !='' " >
-       AND cust_id = #{custId,jdbcType=INTEGER}
+          AND cust_id = #{custId,jdbcType=INTEGER}
+      </if>
+      <if test="cityCode != null and cityCode !='' " >
+         AND city_a = #{cityCode,jdbcType=INTEGER}
       </if>
       AND NOW() &gt; DATE_ADD(use_time, INTERVAL interval_sec MINUTE)
         limit 1
+
   </select>
 
 

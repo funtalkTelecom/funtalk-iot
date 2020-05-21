@@ -34,7 +34,7 @@ public interface TbSCardinfoMapper {
 
     int updateByIccid(TbSCardinfo tbSCardinfo);
 
-    List<TbSCardinfo> selectIdleBusinessIccid(@Param("custId") String custId);
+    List<TbSCardinfo> selectIdleBusinessIccid(@Param("custId") String custId,@Param("cityCode") String cityCode);
 
     List<TbSCardinfo> selectRelevantCardInfo(@Param("iccId") String iccId,@Param("seedIccId") String seedIccId);
 

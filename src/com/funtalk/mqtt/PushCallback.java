@@ -219,7 +219,7 @@ public class PushCallback implements MqttCallback {
 				if (failList.size() > 0)
 					mqttService.updateStateByOrderAndPhone(orderNo, failList, "3");
 				if (undefineList.size() > 0)
-					mqttService.updateStateByOrderAndPhone(orderNo, undefineList, "-3");
+					mqttService.updateStateByOrderAndPhone(orderNo, undefineList, "-5");
 
 			}
 
