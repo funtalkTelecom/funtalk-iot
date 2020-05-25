@@ -1,10 +1,7 @@
 package com.funtalk.mqtt;
 
 import com.alibaba.fastjson.JSONObject;
-import com.funtalk.pojo.SendInfoEntity;
-import com.funtalk.pojo.TbOError;
-import com.funtalk.pojo.TbOModelRecord;
-import com.funtalk.pojo.TbSCardinfo;
+import com.funtalk.pojo.*;
 import com.funtalk.service.MqttService;
 import com.funtalk.start.MqttClient;
 import com.funtalk.util.JsonUtil;
@@ -68,6 +65,7 @@ public class PushCallback implements MqttCallback {
 
 			    TbSCardinfo  tbSCardinfo=null;
 			    TbSCardinfo  tbSCardinfoSeed=null;
+			    List<TbSTaskA> tbSTaskAList;
 				List<TbSCardinfo>  tbSCardinfoList;
 
 				TbOError       tbOError =null;
@@ -142,12 +140,12 @@ public class PushCallback implements MqttCallback {
 
 				returnData.setCardId(cardId);
 
+
 			    // 处理 所有上报后的号码初始化操作，主要是对切卡指令后的上报 清空之前的卡
 			    // 查询 iccid和iccidseed的pojo
 			    //tbSCardinfoList = mqttService.getCardInfo(iccId,seedIccId); // pd.getDate(iccidId);
 
 				tbSCardinfoList = mqttService.getRelevantCardInfo(iccId,seedIccId); // pd.getDate(iccidId);
-
 
                 for (TbSCardinfo tbSCardinfo1 :tbSCardinfoList){
 
@@ -218,6 +216,20 @@ public class PushCallback implements MqttCallback {
 					mqttService.updateStateByOrderAndPhone(orderNo, undefineList, "-5");
 
 			}
+
+			// 解决下发切卡指令后,再次上报时,切卡失败的情况 state=1
+			// 解决下发发送短信任务后,再次上报,发送失败的情况 state=12
+			tbSTaskAList=mqttService.getRelevantTasks(cardId);
+
+			for (TbSTaskA tbSTaskA :tbSTaskAList){
+
+				if (!iccId.equals(tbSTaskA.getIccid())){
+
+					mqttService.updateTaskStateByiId(tbSTaskA.getTaskId());
+				}
+
+			}
+
 
 			// 删卡
 			if(iccId6 != null && iccId6.length() != 0){

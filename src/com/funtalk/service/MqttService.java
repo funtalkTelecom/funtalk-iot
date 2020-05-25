@@ -42,6 +42,46 @@ public class MqttService {
 
     }
 
+    public List<TbSTaskA> getRelevantTasks(String cardId){
+
+        SqlSession sqlSession = null;
+        List<TbSTaskA>  tbSTaskAList;
+
+        try {
+            sqlSession = SessFactory.getSession("iot");
+            TbSTaskAMapper tbSTaskAMapper = sqlSession.getMapper(TbSTaskAMapper.class);
+
+            tbSTaskAList = tbSTaskAMapper.selectRelevantTasks(cardId);
+
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+
+        return tbSTaskAList;
+
+    }
+
+    public void updateTaskStateByiId(Integer taskId){
+
+        SqlSession sqlSession = null;
+
+        try {
+            sqlSession = SessFactory.getSession("iot");
+            TbSTaskAMapper tbSTaskAMapper = sqlSession.getMapper(TbSTaskAMapper.class);
+
+            tbSTaskAMapper.updateTaskStateByiId(taskId);
+
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+
+    }
+
+
     public List<TbSCardinfo> getRelevantCardInfo(String iccId,String seedIccId){
 
         SqlSession sqlSession = null;
