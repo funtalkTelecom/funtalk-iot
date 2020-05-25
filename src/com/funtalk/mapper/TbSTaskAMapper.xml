@@ -600,4 +600,24 @@
   </update>
 
 
+  <select id="getSmsNoticeSeq" resultType="java.lang.String">
+    SELECT NEXTVAL(#{transType,jdbcType=VARCHAR});
+  </select>
+
+  <select id="getNeedNoticeSms"  resultMap="BaseResultMap" >
+    SELECT  a.task_id, a.req_seq,a.phone_b,a.notice_url,state
+    FROM tb_s_task_a a
+    WHERE  notice_state='0' and notice_url !=''
+    AND state IN('4','5','6','7','11')  order by a.create_time desc limit 0,100
+  </select>
+
+  <update id="updateNoticeStatus"   parameterType="com.funtalk.pojo.TbSTaskA">
+
+    update tb_s_task_a
+    set notice_state=#{subtask.noticeState},notice_seq=#{subtask.noticeSeq},
+        notice_time=#{subtask.noticeTime},notice_back=#{subtask.noticeBack}
+    where task_id =#{subtask.taskId}
+  </update>
+
+
 </mapper>

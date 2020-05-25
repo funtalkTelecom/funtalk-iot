@@ -42,4 +42,7 @@ public interface TbSTaskAMapper {
 
     List<TbSTaskA> selectProcessingTask(@Param("cardId") String cardId);
 
+    List<TbSTaskA>  getNeedNoticeSms();
+    int updateNoticeStatus(@Param("subtask") TbSTaskA subtask);
+
 }

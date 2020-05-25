@@ -19,7 +19,7 @@
     <result column="task_id" property="taskId" jdbcType="INTEGER" />
   </resultMap>
 
-  <resultMap id="ServiceCount" type="com.funtalk.vo.TbOPhoneCount" >
+  <resultMap id="ServiceCount" type="com.funtalk.pojo.TbOPhoneCount" >
 
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="service_id" property="serviceId" jdbcType="VARCHAR" />

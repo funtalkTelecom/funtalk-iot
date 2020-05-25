@@ -5,7 +5,6 @@ import com.funtalk.pojo.SendInfoEntity;
 import com.funtalk.pojo.TbOError;
 import com.funtalk.pojo.TbOModelRecord;
 import com.funtalk.pojo.TbSCardinfo;
-import com.funtalk.receiverold.sender.MQTTSender;
 import com.funtalk.service.MqttService;
 import com.funtalk.start.MqttClient;
 import com.funtalk.util.JsonUtil;
@@ -101,10 +100,7 @@ public class PushCallback implements MqttCallback {
 			    int signalLevel = obj.getIntValue("signalLevel");
 				String updatanum   = obj.getString("updatanum");
 
-
-			    logger.info("程序开始:"+Thread.currentThread().getName()+">>>"+sdf.format(new Date())+" MQTTReceiver:"
-						    + "cardId:"+cardId+ ",iccId:"+iccId+",seediccId:"+seedIccId);
-
+			    System.out.println("Thread beginning:"+Thread.currentThread().getName()+"--"+sdf.format(new Date())+", cardId:"+cardId);
 
 			// 1-种子卡 2-业务卡
 				String serverTopic = "/" + cardId + "/server";
@@ -306,7 +302,7 @@ public class PushCallback implements MqttCallback {
 
 			mqttClient.publishMessage(serverTopic, serverContent, QoS);
 
-			logger.info("程序结束:"+Thread.currentThread().getName()+">>>处理时间"+(endTime-startTime)/1000 +"秒");
+			System.out.println("Thread ending:"+Thread.currentThread().getName()+", Processing time:"+(endTime-startTime)/1000 +"s.");
 
 		}).start();
 

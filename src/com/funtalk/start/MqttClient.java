@@ -1,8 +1,7 @@
 package com.funtalk.start;
 
 
-import com.funtalk.mqtt.PushCallback;
-import com.funtalk.receiverold.MQTTReceiverClient;
+import com.funtalk.mqtt.*;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
@@ -54,7 +53,7 @@ public class MqttClient {
     }
 
 	public static void main(String[] args) { 
-		// 接收数据
+
         //String topic = "/+/device_test";
 		String topic = "/+/device";
 		String clientid = "ftk_server_listener_894";

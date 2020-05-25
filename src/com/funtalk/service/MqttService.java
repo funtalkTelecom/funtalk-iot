@@ -6,7 +6,7 @@ import com.funtalk.mapper.TbOModelRecordMapper;
 import com.funtalk.mapper.TbSCardinfoMapper;
 import com.funtalk.mapper.TbSTaskAMapper;
 import com.funtalk.pojo.*;
-import com.funtalk.util.MBSessionFactory;
+import com.funtalk.util.SessFactory;
 import com.funtalk.util.StringUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -28,7 +28,7 @@ public class MqttService {
         SqlSession sqlSession = null;
 
         try {
-            sqlSession = MBSessionFactory.getSession();
+            sqlSession = SessFactory.getSession("iot");
             TbSCardinfoMapper tbSCardinfoMapper = sqlSession.getMapper(TbSCardinfoMapper.class);
 
             tbSCardinfoMapper.recoverToInit(iccidList);
@@ -48,7 +48,7 @@ public class MqttService {
         List<TbSCardinfo>  tbSCardinfoList;
 
         try {
-            sqlSession = MBSessionFactory.getSession();
+            sqlSession = SessFactory.getSession("iot");
             TbSCardinfoMapper tbSCardinfoMapper = sqlSession.getMapper(TbSCardinfoMapper.class);
 
             tbSCardinfoList = tbSCardinfoMapper.selectRelevantCardInfo(iccId,seedIccId);
@@ -71,7 +71,7 @@ public class MqttService {
         logger.info("----o---->"+orderNo+"--p--"+phoneList.toString()+"--s--"+state);
 
         try {
-            sqlSession = MBSessionFactory.getSession();
+            sqlSession = SessFactory.getSession("iot");
             TbSTaskAMapper tbSTaskAMapper = sqlSession.getMapper(TbSTaskAMapper.class);
 
             tbSTaskAMapper.updateStateByOrderAndPhone(orderNo, phoneList, state);
@@ -92,7 +92,7 @@ public class MqttService {
         List<TbSCardinfo>  tbSCardinfoList;
 
         try {
-            sqlSession = MBSessionFactory.getSession();
+            sqlSession = SessFactory.getSession("iot");
             TbSCardinfoMapper tbSCardinfoMapper = sqlSession.getMapper(TbSCardinfoMapper.class);
 
              tbSCardinfoList= tbSCardinfoMapper.selectByIccidList(delList);
@@ -113,7 +113,7 @@ public class MqttService {
         SqlSession sqlSession = null;
 
         try {
-            sqlSession = MBSessionFactory.getSession();
+            sqlSession = SessFactory.getSession("iot");
             TbSCardinfoMapper tbSCardinfoMapper = sqlSession.getMapper(TbSCardinfoMapper.class);
 
             tbSCardinfoMapper.updateByIccid(tbSCardinfo);
@@ -133,7 +133,7 @@ public class MqttService {
         SqlSession sqlSession = null;
 
         try {
-            sqlSession = MBSessionFactory.getSession();
+            sqlSession = SessFactory.getSession("iot");
             TbSCardinfoMapper tbSCardinfoMapper = sqlSession.getMapper(TbSCardinfoMapper.class);
 
             tbSCardinfoMapper.updateCardId(cardId,iccid);
@@ -168,7 +168,7 @@ public class MqttService {
 
         try{
 
-          sqlSession = MBSessionFactory.getSession();
+          sqlSession = SessFactory.getSession("iot");
 
           TbSCardinfoMapper  tbSCardinfoMapper = sqlSession.getMapper(TbSCardinfoMapper.class);
           TbSTaskAMapper     tbSTaskAMapper    = sqlSession.getMapper(TbSTaskAMapper.class);
@@ -262,7 +262,7 @@ public class MqttService {
 
         try{
 
-             sqlSession = MBSessionFactory.getSession();
+             sqlSession = SessFactory.getSession("iot");
              tbSTaskAMapper = sqlSession.getMapper(TbSTaskAMapper.class);
              // 将card_id的取值从tbSCardinfo.getCardId() 换成 data.getCardId()
              tbSTaskAList =  tbSTaskAMapper.selectProcessingTask(data.getCardId());
@@ -361,7 +361,7 @@ public class MqttService {
          SqlSession sqlSession = null;
 
          try {
-             sqlSession = MBSessionFactory.getSession();
+             sqlSession = SessFactory.getSession("iot");
              TbOErrorMapper tbOErrorMapper = sqlSession.getMapper(TbOErrorMapper.class);
              tbOErrorMapper.insertSelective(tbOError);
              sqlSession.commit();
@@ -378,7 +378,7 @@ public class MqttService {
         SqlSession sqlSession = null;
 
         try {
-            sqlSession = MBSessionFactory.getSession();
+            sqlSession = SessFactory.getSession("iot");
             TbOModelRecordMapper tbOModelRecordMapper = sqlSession.getMapper(TbOModelRecordMapper.class);
             tbOModelRecordMapper.insertSelective(tbOModelRecord);
             sqlSession.commit();

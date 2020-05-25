@@ -2,7 +2,7 @@ package com.funtalk.start;
 
 import com.funtalk.mapper.*;
 import com.funtalk.pojo.*;
-import com.funtalk.util.MBSessionFactory;
+import com.funtalk.util.SessFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
@@ -38,7 +38,7 @@ public  static void calculate(){
 
     try {
 
-        sqlSession1 = MBSessionFactory.getSession();
+        sqlSession1 = SessFactory.getSession("iot");
 
         // mybatis中默认开启事务，且不会自动提交，如果是mysql数据库，则事务等级为4 =REPEATABLE-READ
         logger.info("----whether auto submit----->" + sqlSession1.getConnection().getAutoCommit());
@@ -70,7 +70,7 @@ public  static void calculate(){
 
     try {
 
-        sqlSession2 = MBSessionFactory.getSession();
+        sqlSession2 = SessFactory.getSession("iot");
         // 使用方式1
         // List<TbSSubtaskResult> tbSSubtaskResult= sqlSession.selectList("com.ftk.mapper.TbSSubtaskResultMapper.selectByState","2");
         //使用方式2

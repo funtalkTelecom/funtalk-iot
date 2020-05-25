@@ -2,7 +2,7 @@ package com.funtalk.mapper;
 
 import com.funtalk.pojo.TbOPhone;
 import com.funtalk.pojo.TbOPhoneExample;
-import com.funtalk.vo.TbOPhoneCount;
+import com.funtalk.pojo.TbOPhoneCount;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
