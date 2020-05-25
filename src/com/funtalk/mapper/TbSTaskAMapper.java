@@ -33,6 +33,8 @@ public interface TbSTaskAMapper {
 
     List<TbSTaskA> selectUndealtTask();
     List<TbSTaskA> selectProcessingTask();
+    List<TbSTaskA> selectRelevantTasks(@Param("cardId") String cardId);
+    int updateTaskStateByiId(@Param("taskId") Integer taskId);
 
     int updateStatus(Map<String, Object> paramMap);
 

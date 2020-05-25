@@ -620,4 +620,17 @@
   </update>
 
 
+  <select id="selectRelevantTasks" resultMap="BaseResultMap">
+      SELECT * FROM tb_s_task_a   WHERE state in("1","12")  and card_id = #{cardId,jdbcType=VARCHAR}
+  </select>
+
+
+  <update id="updateTaskStateByiId">
+
+    UPDATE  tb_s_task_a
+    SET
+      state='0'
+    WHERE task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+
 </mapper>
